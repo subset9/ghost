@@ -3,7 +3,7 @@
 #include "rightGhostSmall.h"
 #include "centerGhostSmall.h"
 #include <TFT_eSPI.h>
-#include <Stepper.h>
+#include <AccelStepper.h>
 
 #define BLINKSPEED 9
 //stepper pins
@@ -34,15 +34,16 @@ int EYEPOSY = 0;
  int motion = 0;
 
 
-   //AccelStepper stepper (AccelStepper::FULL4WIRE, 18,4,5,6);
-   const int stepsPerRevolution = 2048;
-  Stepper myStepper(stepsPerRevolution, IN1, IN3, IN2, IN4);
+   AccelStepper stepper(4, 18,5,4,7);
+   //const int stepsPerRevolution = 2048;
+  //Stepper myStepper(32, IN1, IN3, IN2, IN4);
 
 void setup() {
-//stepper.setAcceleration(20.0);
-//stepper.setMaxSpeed(90.0);
-//stepper.setMinPulseWidth(20.0);
-myStepper.setSpeed(5);
+stepper.setAcceleration(400.0);
+stepper.setMaxSpeed(1000.0);
+stepper.setSpeed(800.0);
+
+
 
  
 
@@ -63,18 +64,18 @@ myStepper.setSpeed(5);
 }
 
 void loop() {
-
+  //myStepper.setSpeed(400);
    //delay(500);  // needed to start-up task1
 
   //clockwise spin 
  
 
   blinkMotion();
-  myStepper.step(stepsPerRevolution/4);
- myStepper.step(-stepsPerRevolution/4);
-  //stepper.setSpeed(5);
-  //stepper.runToNewPosition(0);
- 
+  //myStepper.step(stepsPerRevolution/4);
+ //myStepper.step(-stepsPerRevolution/4);
+  
+  stepper.runToNewPosition(2048/4);
+ stepper.runToNewPosition(-2048/4);
    
 
   eyeMove(1000,10,1,true,true,false,3); 
