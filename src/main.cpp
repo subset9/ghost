@@ -33,7 +33,7 @@ int EYEPOSY = 0;
  int y = 60;
  int motion = 0;
 
-  //init stepper
+
    //AccelStepper stepper (AccelStepper::FULL4WIRE, 18,4,5,6);
    const int stepsPerRevolution = 2048;
   Stepper myStepper(stepsPerRevolution, IN1, IN3, IN2, IN4);
